@@ -5,6 +5,58 @@
 #include "binomial.h"
 //------------------------------
 
+class binomial {
+    double coeff1, coeff2;
+    int exp1, exp2;
+    public:
+    binomial (double c1 = 1, int e1 = 1, double c2 = 1, int e2 = 1);
+    double GetCoefficient (int idx);
+    int GetPower (int idx);
+    void SetPower (int idx, int pwr);
+    void Add (const binomial& other);
+    void Multiply (double val);
+    void Multiply (double c, int e);
+    void print ();
+};
+
+binomial::binomial (double c1, int e1, double c2, int e2) {
+    coeff1 = c1; exp1 = e1; coeff2 = c2; exp2 = e2;
+}
+double binomial::GetCoefficient (int idx) {
+    if (idx == 1) return coeff1;
+    else if (idx == 2) return coeff2;
+    else return -1;
+}
+int binomial::GetPower (int idx) {
+    if (idx == 1) return exp1;
+    else if (idx == 2) return exp2;
+    else return -1;
+}
+void binomial::SetPower (int idx, int pwr) {
+    if ((idx < 1) || (idx > 2)) return;
+    if (pwr < 0) pwr = 1;
+    if (idx == 1) exp1 = pwr; 
+    else exp2 = pwr;
+}
+void binomial::Add (const binomial& other) {
+    if ((exp1 != other.exp1) || (exp2 != other.exp2)) return;
+    coeff1 += other.coeff1;
+    coeff2 += other.coeff2;
+}
+void binomial::Multiply (double val) {
+    coeff1 *= val;
+    coeff2 *= val;
+}
+void binomial::Multiply (double c, int e) {
+    coeff1 *= c;
+    coeff2 *= c;
+    exp1 += e;
+    exp2 += e;
+}
+void binomial::print () {
+    cout << setprecision(2) << (coeff1) << "x**" << exp1 << " + " 
+            << setprecision(2) << coeff2 << "x**" << exp2 << endl;
+}
 //------------------------------
 //   DO NOT MODIFY TEST CASES
 //------------------------------
